@@ -1,0 +1,22 @@
+table {
+  border-collapse: collapse;
+  * {
+    padding: 2px;
+  }
+}
+
+.tableGrade1 {
+  background-color: rgba(0, 121, 255);
+}
+.tableGrade2 {
+  background-color: rgba(246, 250, 112);
+}
+.tableGrade3 {
+  background-color: rgba(255, 0, 96);
+}
+
+.point1 {
+  color: red;
+  font-weight: bold;
+  text-decoration: underline;
+}

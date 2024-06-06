@@ -1,0 +1,42 @@
+.devMode {
+  display: none;
+}
+
+.housiInput {
+  margin: 20px;
+  width: 100%;
+
+  select {
+    width: 100px;
+    height: 50px;
+  }
+  button {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.students {
+  button {
+    padding: 5px;
+    height: 50px;
+  }
+}
+
+.tables {
+  display: flex;
+  align-items: start;
+}
+
+Table {
+  margin-right: 2px;
+  :last-child {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  body {
+    font-size: 10px;
+  }
+}
