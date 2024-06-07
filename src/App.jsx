@@ -23,7 +23,8 @@ function App() {
   const [selectPoint, setSelectPoint] = useState(1);
   const [selectId, setSelectId] = useState("");
   const [selectIndex, setSelectIndex] = useState("");
-  const [showGrade, setShowGrade] = useState(1);
+
+  const [dev, setDev] = useState(true);
 
   // ソート順 0:学年, 1:ポイント
   const [sort, setSort] = useState(1);
@@ -91,7 +92,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path={"/admin"}
+          path={"/kanri"}
           element={
             <>
               <div className="App">
@@ -163,7 +164,7 @@ function App() {
 
                 {/* 生徒を追加 */}
 
-                <div className="devMode">
+                <div className={dev && "devMode"}>
                   <h2>生徒を追加</h2>
                   <select
                     id="selectAddName"
@@ -204,11 +205,22 @@ function App() {
 
                   {/* テーブル生成 */}
                   <div className="tables">
-                    <Table datas={datas} grade={1} />
-                    <Table datas={datas} grade={2} />
-                    <Table datas={datas} grade={3} />
+                    <Table datas={datas} grade={1} dev={dev} />
+                    <Table datas={datas} grade={2} dev={dev} />
+                    <Table datas={datas} grade={3} dev={dev} />
                   </div>
                 </div>
+                <button
+                  onClick={() => {
+                    setDev(!dev);
+                    console.log(dev);
+                  }}
+                >
+                  開発モード切り替え
+                </button>
+                <a href="/">
+                  <h1>寮生用画面に移る</h1>
+                </a>
               </div>
             </>
           }
@@ -236,6 +248,10 @@ function App() {
                 <Table datas={datas} grade={2} />
                 <Table datas={datas} grade={3} />
               </div>
+
+              <a href="/kanri">
+                <h1>寮長用管理画面に移る</h1>
+              </a>
             </>
           }
         />

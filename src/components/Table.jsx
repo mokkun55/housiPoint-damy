@@ -1,7 +1,7 @@
 import React from "react";
 import "./Table.scss";
 
-function Table({ datas, grade }) {
+function Table({ datas, grade, dev }) {
   return (
     <table border={1}>
       <tr className={`tableGrade${grade}`}>
@@ -21,7 +21,7 @@ function Table({ datas, grade }) {
               <td className={`point${Math.floor(i.point / 100)}`}>
                 {i.point} Pt
               </td>
-              <td className="devMode">{i.id}</td>
+              <td className={dev && "devMode"}>{i.id}</td>
             </tr>
           );
         }
