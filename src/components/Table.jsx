@@ -1,7 +1,7 @@
 import React from "react";
 import "./Table.scss";
 
-function Table({ datas, grade, dev }) {
+function Table({ datas, grade, dev = true }) {
   return (
     <table border={1}>
       <tr className={`tableGrade${grade}`}>
