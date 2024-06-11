@@ -20,14 +20,16 @@ function App() {
   // フォーム
   const [selectGrade, setSelectGrade] = useState();
   const [selectName, setSelectName] = useState();
-  const [selectPoint, setSelectPoint] = useState(1);
+  const [selectPoint, setSelectPoint] = useState(0);
   const [selectId, setSelectId] = useState("");
   const [selectIndex, setSelectIndex] = useState("");
 
-  const [dev, setDev] = useState(true);
-
   // ソート順 0:学年, 1:ポイント
   const [sort, setSort] = useState(1);
+
+  // ログイン関係 ダミーサイトでは使わない
+  // const [isAuth, setIsAuth] = useState(false);
+  // const [password, setPassword] = useState("");
 
   // リロード時に実行
   useEffect(() => {
@@ -92,137 +94,127 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path={"/kanri"}
+          path={"/admin"}
           element={
-            <>
-              <div className="App">
-                <h1>＜奉仕ポイント寮長専用管理画面＞</h1>
-                <h2>！！！名前はダミーです！！！</h2>
+            <div className="App">
+              <h1>＜奉仕ポイント寮長専用管理画面＞</h1>
 
-                {/* ポイント選択 */}
+              {/* ポイント選択 */}
 
-                <div className="housiInput">
-                  <select
-                    id="selectGrade"
-                    onChange={(e) => {
-                      setSelectGrade(Number(e.target.value));
-                    }}
-                  >
-                    <option value="">--学年選択--</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                  </select>
+              <div className="housiInput">
+                <select
+                  id="selectGrade"
+                  onChange={(e) => {
+                    setSelectGrade(Number(e.target.value));
+                  }}
+                >
+                  <option value="">--学年選択--</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
 
-                  {/* 名前選択 */}
+                {/* 名前選択 */}
 
-                  <select
-                    id="selectName"
-                    onChange={(e) => {
-                      let dataArr = e.target.value.split(",");
+                <select
+                  id="selectName"
+                  onChange={(e) => {
+                    let dataArr = e.target.value.split(",");
 
-                      setSelectId(dataArr[0]);
-                      setSelectIndex(Number(dataArr[1]));
-                    }}
-                  >
-                    <option value="">--氏名選択--</option>
-                    {datas.map((i, index) => {
-                      if (i.grade === selectGrade) {
-                        return <option value={[i.id, index]}>{i.name}</option>;
-                      }
-                    })}
-                  </select>
-                  <select
-                    id="selectHoushi"
-                    onChange={(e) => {
-                      setSelectPoint(Number(e.target.value));
-                    }}
-                  >
-                    <option value="">--ポイント--</option>
-                    <option value={5}>点呼中スマホ +5</option>
-                    <option value={5}>風呂道具 +5</option>
-                    <option value={10}>鍵関係 +10</option>
-                    <option value={10}>登校点呼後戻り +10</option>
-                    <option value={15}>掃除来ない +15</option>
-                    <option value={20}>点呼遅れ +20</option>
-                    <option value={20}>時間外入浴 +20</option>
-                    <option value={10}>ゴミ分別 +10</option>
-                    <option value={5}>迷惑行為 +5</option>
-                    <option value={10}>迷惑行為 +10</option>
-                    <option value={15}>迷惑行為 +15</option>
-                    <option value={20}>迷惑行為 +20</option>
-                    <option value={25}>迷惑行為 +25</option>
-                    <option value={30}>迷惑行為 +30</option>
-                    <option value={-5}>奉仕活動 -5</option>
-                    <option value={-10}>奉仕活動 -10</option>
-                    <option value={-15}>奉仕活動 -15</option>
-                    <option value={-20}>奉仕活動 -20</option>
-                  </select>
+                    setSelectId(dataArr[0]);
+                    setSelectIndex(Number(dataArr[1]));
+                  }}
+                >
+                  <option value="">--氏名選択--</option>
+                  {datas.map((i, index) => {
+                    if (i.grade === selectGrade) {
+                      return <option value={[i.id, index]}>{i.name}</option>;
+                    }
+                  })}
+                </select>
+                <select
+                  id="selectHoushi"
+                  onChange={(e) => {
+                    setSelectPoint(Number(e.target.value));
+                  }}
+                >
+                  <option value="">--ポイント--</option>
+                  <option value={5}>点呼中スマホ +5</option>
+                  <option value={5}>風呂道具 +5</option>
+                  <option value={10}>鍵関係 +10</option>
+                  <option value={10}>登校点呼後戻り +10</option>
+                  <option value={15}>掃除来ない +15</option>
+                  <option value={20}>点呼遅れ +20</option>
+                  <option value={20}>時間外入浴 +20</option>
+                  <option value={10}>ゴミ分別 +10</option>
+                  <option value={5}>迷惑行為 +5</option>
+                  <option value={10}>迷惑行為 +10</option>
+                  <option value={15}>迷惑行為 +15</option>
+                  <option value={20}>迷惑行為 +20</option>
+                  <option value={25}>迷惑行為 +25</option>
+                  <option value={30}>迷惑行為 +30</option>
+                  <option value={-5}>奉仕活動 -5</option>
+                  <option value={-10}>奉仕活動 -10</option>
+                  <option value={-15}>奉仕活動 -15</option>
+                  <option value={-20}>奉仕活動 -20</option>
+                </select>
 
-                  <button onClick={addPoint}>送信</button>
-                </div>
+                <button onClick={addPoint}>送信</button>
+              </div>
 
-                {/* 生徒を追加 */}
+              {/* 生徒を追加 */}
 
-                <div className={dev && "devMode"}>
-                  <h2>生徒を追加</h2>
-                  <select
-                    id="selectAddName"
-                    onChange={(e) => {
-                      setSelectGrade(e.target.value);
-                    }}
-                  >
-                    <option value="">--選択--</option>
-                    <option value="1">1年生</option>
-                    <option value="2">2年生</option>
-                    <option value="3">3年生</option>
-                  </select>
-                  <input
-                    type="text"
-                    placeholder="氏名"
-                    onChange={(e) => {
-                      setSelectName(e.target.value);
-                    }}
-                  />
-                  <input
-                    type="number"
-                    placeholder="point"
-                    onChange={(e) => {
-                      setSelectPoint(e.target.value);
-                    }}
-                  />
-                  <button onClick={addData}>submit</button>
-                </div>
+              <div className="devMode">
+                <h2>生徒を追加</h2>
+                <select
+                  id="selectAddName"
+                  onChange={(e) => {
+                    setSelectGrade(e.target.value);
+                  }}
+                >
+                  <option value="">--選択--</option>
+                  <option value="1">1年生</option>
+                  <option value="2">2年生</option>
+                  <option value="3">3年生</option>
+                </select>
+                <input
+                  type="text"
+                  placeholder="氏名"
+                  onChange={(e) => {
+                    setSelectName(e.target.value);
+                  }}
+                />
+                <input
+                  type="number"
+                  placeholder="point"
+                  onChange={(e) => {
+                    setSelectPoint(e.target.value);
+                  }}
+                />
+                <button onClick={addData}>submit</button>
+              </div>
 
-                <div className="students">
-                  <h2>生徒一覧</h2>
+              <div className="students">
+                <h2>生徒一覧</h2>
+
+                <div className="students-titile">
                   <button onClick={() => setSort(0)}>
                     学年&名前で並び替え
                   </button>
                   <button onClick={() => setSort(1)}>
                     ポイント数で並び替え
                   </button>
-
-                  {/* テーブル生成 */}
-                  <div className="tables">
-                    <Table datas={datas} grade={1} dev={dev} />
-                    <Table datas={datas} grade={2} dev={dev} />
-                    <Table datas={datas} grade={3} dev={dev} />
-                  </div>
                 </div>
-                <button
-                  onClick={() => {
-                    setDev(!dev);
-                    console.log(dev);
-                  }}
-                >
-                  開発モード切り替え
-                </button>
-                <a href="/">
-                  <h1>寮生用画面に移る</h1>
-                </a>
+
+                {/* テーブル生成 */}
+                <div className="tables">
+                  <Table datas={datas} grade={1} />
+                  <Table datas={datas} grade={2} />
+                  <Table datas={datas} grade={3} />
+                </div>
               </div>
-            </>
+              <a href="/">戻る</a>
+            </div>
           }
         />
 
@@ -239,9 +231,8 @@ function App() {
               </p>
               <p>※100Pt以上は赤くなります</p>
               <br />
-              <p style={{ fontWeight: "bold" }}>
-                ★試験運用中です!!! 突然動かなくなるかも...
-              </p>
+              <p className="siken">★★★!!!氏名データはダミーです!!!★★★</p>
+
               <br />
               <div className="tables">
                 <Table datas={datas} grade={1} />
@@ -249,9 +240,7 @@ function App() {
                 <Table datas={datas} grade={3} />
               </div>
 
-              <a href="/kanri">
-                <h1>寮長用管理画面に移る</h1>
-              </a>
+              <a href="/admin">管理画面に移る</a>
             </>
           }
         />
